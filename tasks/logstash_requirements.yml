@@ -1,0 +1,18 @@
+---
+- name: Install Python utils on Debian OS Family
+  apt: pkg={{ item.package }} 
+       update_cache=yes 
+       state=latest
+  with_items: logstash_python_utils
+  when: ansible_os_family == "Debian"
+
+- name: Install Java on Debian OS Family
+  apt: pkg={{ open_jdk_deb }} 
+       update_cache=yes
+       state=latest
+  when: ansible_os_family == "Debian"
+
+- name: Install Java on RedHat OS Family
+  yum: name={{ open_jdk_rh }} 
+       state=latest
+  when: ansible_os_family == "RedHat"

@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+output {
+
+{% for key,value in logstash_outputs.iteritems() %}
+  {{ key }} {
+
+{% for key,value in value.items() %}
+    {{ key }} => {{ value }}
+{% endfor %}
+
+  }
+
+{% endfor %}
+}
