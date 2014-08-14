@@ -19,7 +19,8 @@ Example Playbooks
              logstash_version: "1.4",
 
              logstash_defaults:
-             [{ directive: "LS_USER=root" }],
+             [{ directive: "LS_USER=root" },
+              { directive: 'LS_HEAP_SIZE="256m"' }],
 
              logstash_inputs:
              { file: { path: '[ "/home/dummy/logs/access.log" ]', type: '"nginx_logs"', tags: '"nginx_logs"' }},
