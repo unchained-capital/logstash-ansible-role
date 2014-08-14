@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+filter {
+{% for key,value in logstash_filters.iteritems() %}
+  {{ key }} {
+
+{% for key,value in value.items() %}
+    {{ key }} => {{ value }}
+{% endfor %}
+
+  }
+
+{% endfor %}
+}
