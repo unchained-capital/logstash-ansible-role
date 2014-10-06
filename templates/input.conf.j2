@@ -1,15 +1,16 @@
 # {{ ansible_managed }}
 
 input {
-
-{% for key,value in logstash_inputs.iteritems() %}
+{% for inpt in logstash_inputs %}
+{% for key,value in inpt.iteritems() %}
   {{ key }} {
 
 {% for key,value in value.items() %}
-    {{ key }} => {{ value }}
+    {{ key }} => "{{ value }}"
 {% endfor %}
 
   }
 
+{% endfor %}
 {% endfor %}
 }

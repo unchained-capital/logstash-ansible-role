@@ -6,7 +6,7 @@ output {
   {{ key }} {
 
 {% for key,value in value.items() %}
-    {{ key }} => {{ value }}
+    {{ key }} => "{{ value }}"
 {% endfor %}
 
   }
