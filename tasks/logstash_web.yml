@@ -4,6 +4,6 @@
   lineinfile: dest=/etc/default/logstash-web regexp=^START= line=START=yes
   when: ansible_distribution == "Ubuntu"
   notify:
-   - restart logstash
+   - restart logstash-web
   tags:
    - logstash_conf
