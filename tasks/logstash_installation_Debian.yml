@@ -7,13 +7,13 @@
   apt_key: url="{{ logstash_repo_key }}" 
            state=present
 
-- name: Install Logstash and Logstash-Contrib
+- name: Install Logstash
   apt: pkg={{ item.package }} 
        update_cache=yes 
        state=latest
   with_items: logstash_packages
 
-- name: Configure default settings for Logstash (Debian only. Upstart on Ubuntu won't be touched)
+- name: Configure default settings for Logstash daemon (Debian)
   template: src=defaults.conf.j2
             dest={{ defaults_Debian }}
             owner=root
@@ -21,6 +21,14 @@
             mode=0644
             backup=yes
   when: ansible_distribution == "Debian"
+  notify:
+   - restart logstash
+  tags:
+   - logstash_conf
+
+- name: Configure default settings for Logstash daemon (Ubuntu)
+  lineinfile: dest=/etc/default/logstash regexp=^START= line=START=yes
+  when: ansible_distribution == "Ubuntu"
   notify:
    - restart logstash
   tags:

@@ -18,3 +18,7 @@
 - include: logstash_configuration.yml
   tags:
    - logstash_conf
+   
+- include: logstash_web.yml
+  tags:
+   - logstash_web

@@ -1,0 +1,9 @@
+---
+
+- name: Configure default settings for Logstash web daemon (Ubuntu)
+  lineinfile: dest=/etc/default/logstash-web regexp=^START= line=START=yes
+  when: ansible_distribution == "Ubuntu"
+  notify:
+   - restart logstash
+  tags:
+   - logstash_conf
