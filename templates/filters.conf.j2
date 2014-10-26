@@ -1,14 +1,12 @@
 # {{ ansible_managed }}
 
+{% if logstash_filters is defined %}
 filter {
 {% for key,value in logstash_filters.iteritems() %}
-  {{ key }} {
-
-{% for key,value in value.items() %}
-    {{ key }} => {{ value }}
-{% endfor %}
-
-  }
+ {{ key }} {
+   {{ value }}
+ }
 
 {% endfor %}
 }
+{% endif %}

@@ -3,13 +3,9 @@
 input {
 
 {% for key,value in logstash_inputs.iteritems() %}
-  {{ key }} {
-
-{% for key,value in value.items() %}
-    {{ key }} => {{ value }}
-{% endfor %}
-
-  }
+ {{ key }} {
+   {{ value }}
+ }
 
 {% endfor %}
 }

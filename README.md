@@ -12,63 +12,34 @@ Example Playbooks
 ----------------
 
 ```yaml
----
-- hosts: LogstashNodesWithAFilter
+- hosts: LogstashNodes
   roles:
-   - { role: logstash-role,
-             logstash_version: "1.4",
+    - role: valentinogagliardi.logstash-role
+      logstash_version: "1.4"
 
-             logstash_defaults:
-             [{ directive: "LS_USER=root" },
-              { directive: 'LS_HEAP_SIZE="256m"' }],
+      logstash_defaults:
+        - directive: "LS_USER=root"
+        - directive: 'LS_HEAP_SIZE="256m"'
 
-             logstash_inputs:
-             { file: { path: '[ "/home/dummy/logs/access.log" ]', type: '"nginx_logs"', tags: '"nginx_logs"' }},
- 
-             logstash_filters:
-             { geoip: { source: '"remote_addr"' },
-               metrics: { meter: '[ "http.%{response}" ]', add_tag: '"nginx_metrics"' }},
+      logstash_inputs:
+        syslog: >-
+          host => "{{ ansible_eth1.ipv4.address }}"
+             port => "514"
+             type => "from_ossec_syslog"
+        collectd: >-
+          host => "{{ ansible_eth1.ipv4.address }}"
+             port => "25887"
 
-             logstash_outputs:
-             {  file: { path: '"/var/log/logstash/logstash_processed.log"' }},
+      logstash_filters:
+        geoip: >-
+          source => "ip_address"
 
-             tags: ["logstash"] }
-
-- hosts: DummyLogstashNodes
-  roles:
-   - { role: valentinogagliardi.logstash-role,
-             logstash_version: "1.4",
-
-             logstash_defaults:
-             [{ directive: "LS_USER=root" }],
-
-             logstash_inputs:
-             { file: { path: '[ "/var/log/auth.log" ]', type: '"auth_logs"' }},
-
-             logstash_outputs:
-             {  file: { path: '"/var/log/logstash/%{type}.log"' }},
-
-             tags: ["logstash"] }
-
-- hosts: ComplicatedLogstashNodes
-  roles:
-   - { role: valentinogagliardi.logstash-role,
-             logstash_version: "1.4",
-
-             logstash_defaults:
-             [{ directive: "LS_USER=root" }],
-
-             logstash_inputs:
-             { file: { path: '[ "/var/log/syslog", "/var/log/messages" ]', exclude: '"*.gz"', type: '"linux_logs"' },
-               syslog: { port: '"514"', host: '"1.2.3.4"', type: '"syslog"' },
-               redis: { host: '127.0.0.1', port: '"6379"', type: '"redis"' }},
-
-             logstash_outputs:
-             { elasticsearch: { host: '"1.2.3.5"' },
-               email: { body: 'Error Log!', from: 'logger@mydomain.com', subject: 'Alert!', to: 'pager@myadmin.com' },
-               file: { path: '"/var/log/logstash/logs_%{type}.log"', flush_interval: '"50"' }},
-             tags: ["logstash"] }
-
+      logstash_outputs:
+        file: >-
+          path => "/var/log/logstash/output.log"
+        redis: >-
+          host => "10.8.8.22"
+      tags: logstash
 ```
 
 Role Variables
