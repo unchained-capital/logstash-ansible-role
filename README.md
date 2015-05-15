@@ -15,7 +15,7 @@ Example Playbooks
 - hosts: LogstashNodes
   roles:
     - role: valentinogagliardi.logstash-role
-      logstash_version: "1.4"
+      logstash_version: "1.5"
 
       logstash_defaults:
         - directive: "LS_USER=root"

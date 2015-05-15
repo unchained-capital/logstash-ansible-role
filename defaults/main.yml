@@ -8,7 +8,7 @@ logstash_python_utils:
 open_jdk_rh: "java-1.8.0-openjdk-headless"
 open_jdk_deb: "openjdk-7-jre-headless"
 
-logstash_version: "none"
+logstash_version: "1.5"
 
 logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_version }}/debian stable main"
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"

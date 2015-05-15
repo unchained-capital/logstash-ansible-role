@@ -2,10 +2,12 @@
 - name: Enable Logstash Repository
   apt_repository: repo="{{ logstash_apt_repo }}" 
                   state=present
+  tags: logstash_repo
 
 - name: Add Logstash Repo Key
   apt_key: url="{{ logstash_repo_key }}" 
            state=present
+  tags: logstash_repo
 
 - name: Install Logstash and Logstash-Contrib
   apt: pkg={{ item.package }} 
