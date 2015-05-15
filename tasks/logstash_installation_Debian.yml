@@ -26,4 +26,4 @@
   notify:
    - restart logstash
   tags:
-   - logstash_conf
+   - logstash_defaults

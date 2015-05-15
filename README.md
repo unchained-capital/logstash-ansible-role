@@ -15,11 +15,12 @@ Example Playbooks
 - hosts: LogstashNodes
   roles:
     - role: valentinogagliardi.logstash-role
+
       logstash_version: "1.5"
 
-      logstash_defaults:
-        - directive: "LS_USER=root"
-        - directive: 'LS_HEAP_SIZE="256m"'
+      logstash_defaults: |
+        LS_USER=root
+        LS_HEAP_SIZE="256m"
 
       logstash_inputs:
         syslog: >-
@@ -39,6 +40,7 @@ Example Playbooks
           path => "/var/log/logstash/output.log"
         redis: >-
           host => "10.8.8.22"
+
       tags: logstash
 ```
 
