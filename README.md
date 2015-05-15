@@ -33,9 +33,13 @@ Example Playbooks
                 type => "syslog_input_local"
               }
 
-      logstash_filters:
-        geoip: >-
-          source => "ip_address"
+     logstash_filters: |
+       geoip { source => "ip_address" 
+             }
+ 
+       multiline { pattern => "^No lfn2pfn"
+                   what => "previous"
+                 }
 
       logstash_outputs:
         file: >-
