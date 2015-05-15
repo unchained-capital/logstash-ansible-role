@@ -59,10 +59,6 @@ logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_v
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
-logstash_packages:
- - { package: "logstash" }
- - { package: "logstash-contrib" }
-
 logstash_conf_dir: "/etc/logstash/conf.d/"
 
 logstash_defaults: 
