@@ -7,13 +7,9 @@
 
 - include: logstash_installation_Debian.yml
   when: ansible_os_family == "Debian"
-  tags:
-   - logstash_install
 
 - include: logstash_installation_RedHat.yml
   when: ansible_os_family == "RedHat"
-  tags:
-   - logstash_install
 
 - include: logstash_configuration.yml
   tags:

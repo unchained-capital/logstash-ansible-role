@@ -9,10 +9,10 @@
            state=present
   tags: logstash_repo
 
-- name: Install Logstash and Logstash-Contrib
-  yum: name={{ item.package }} 
+- name: Install Logstash
+  yum: name=logstash
        state=latest
-  with_items: logstash_packages
+  tags: logstash_install
 
 - name: Configure default settings for Logstash
   template: src=defaults.conf.j2
