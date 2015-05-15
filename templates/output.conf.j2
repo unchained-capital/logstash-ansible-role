@@ -2,10 +2,6 @@
 
 output {
 
-{% for key,value in logstash_outputs.iteritems() %}
- {{ key }} {
-   {{ value }}
- }
+{{ logstash_outputs }}
 
-{% endfor %}
 }

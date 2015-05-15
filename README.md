@@ -41,11 +41,9 @@ Example Playbooks
                    what => "previous"
                  }
 
-      logstash_outputs:
-        file: >-
-          path => "/var/log/logstash/output.log"
-        redis: >-
-          host => "10.8.8.22"
+     logstash_outputs: |
+       file { path => "/var/log/logstash/output.log"
+            }
 
       tags: logstash
 ```
