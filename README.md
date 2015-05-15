@@ -50,8 +50,8 @@ logstash_python_utils:
  - { package: "python-pycurl" }
  - { package: "python-apt" }
 
-open_jdk_rh: "java-1.7.0-openjdk"
-open_jdk_deb: "openjdk-7-jre"
+open_jdk_rh: "java-1.8.0-openjdk-headless"
+open_jdk_deb: "openjdk-7-jre-headless"
 
 logstash_version: "none"
 
