@@ -22,14 +22,16 @@ Example Playbooks
         LS_USER=root
         LS_HEAP_SIZE="256m"
 
-      logstash_inputs:
-        syslog: >-
-          host => "{{ ansible_eth1.ipv4.address }}"
-             port => "514"
-             type => "from_ossec_syslog"
-        collectd: >-
-          host => "{{ ansible_eth1.ipv4.address }}"
-             port => "25887"
+     logstash_inputs: |
+       syslog { host => "{{ ansible_eth0.ipv4.address }}"
+                port => "514"
+                type => "syslog_input"
+              }
+
+       syslog { host => "{{ ansible_lo.ipv4.address }}"
+                port => "515"
+                type => "syslog_input_local"
+              }
 
       logstash_filters:
         geoip: >-
