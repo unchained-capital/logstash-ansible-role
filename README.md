@@ -6,7 +6,9 @@ Ansible Role to Install and Configure Logstash
 Requirements
 ------------
 
-**Java** should be present on the nodes machines in order to run Logstash. On Debian OS family, **python-pycurl** and **python-apt** are required to deal with apt Ansible modules. The role already take care of these dependencies, however you can disable this behavior with `--skip-tags=logstash_req`.
+On Debian OS family, **python-pycurl** and **python-apt** are required to deal with apt Ansible modules. The role already take care of these dependencies, you can disable this behavior with `--skip-tags=logstash_req`.
+
+**Java** should be present on the nodes machines in order to run Logstash. This role does not install Java.
 
 Example Playbooks
 ----------------
@@ -55,9 +57,6 @@ Role Variables
 logstash_python_utils:
  - { package: "python-pycurl" }
  - { package: "python-apt" }
-
-open_jdk_rh: "java-1.8.0-openjdk-headless"
-open_jdk_deb: "openjdk-7-jre-headless"
 
 logstash_version: "none"
 
