@@ -8,6 +8,7 @@
 - name: Stop Logstash before upgrading
   service: name=logstash
            state=stopped
+  ignore_errors: yes
 
 - include: logstash_installation_Debian.yml
   when: ansible_os_family == "Debian"

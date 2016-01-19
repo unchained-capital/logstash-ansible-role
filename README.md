@@ -20,8 +20,6 @@ Example Playbooks
   roles:
     - role: valentinogagliardi.logstash-role
 
-      logstash_version: "1.5"
-
       logstash_defaults: |
         LS_USER=root
         LS_HEAP_SIZE="256m"
