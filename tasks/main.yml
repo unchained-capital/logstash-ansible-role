@@ -5,6 +5,10 @@
   tags:
    - logstash_req
 
+- name: Stop Logstash before upgrading
+  service: name=logstash
+           state=stopped
+
 - include: logstash_installation_Debian.yml
   when: ansible_os_family == "Debian"
 
@@ -14,3 +18,8 @@
 - include: logstash_configuration.yml
   tags:
    - logstash_conf
+
+- name: Start Logstash
+  service: name=logstash
+           state=started
+           enabled=yes
