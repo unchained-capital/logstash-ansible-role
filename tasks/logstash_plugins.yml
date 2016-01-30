@@ -1,0 +1,34 @@
+---
+#
+# Code adapted from similar file at https://github.com/Traackr/ansible-elasticsearch
+#
+
+# Install Logstash Plugins
+#
+# You will need to define an array called 'logstash_plugins' in your playbook or inventory, such that:
+#
+# logstash_plugins:
+#  - { name: '<plugin name>', url: '<[optional] plugin url>' }
+#  - ...
+# where if you were to install the plugin via bin/plugin, you would type:
+#
+# bin/plugin install <plugin name>
+
+# Example for https://github.com/logstash-plugins/logstash-output-elasticsearch (bin/plugin install logstash-plugins/logstash-output-elasticsearch):
+#
+
+# Loop though logstash_plugins and install them
+
+- name: plugins | Removing Old Plugins
+  shell: bin/plugin uninstall {{ item.name }}
+    chdir={{ logstash_home_dir }}
+  when: item.name is defined and item.reinstall is defined and item.reinstall == True
+  with_items: logstash_plugins
+  ignore_errors: yes
+- name: plugins | Installing Plugins
+  shell: bin/plugin install {{ item.name }} {{ '--version ' + item.version if item.version is defined else '' }}
+    chdir={{ logstash_home_dir }}
+  with_items: logstash_plugins
+  register: logstash_plugins_installed
+  changed_when: "'Installed' in logstash_plugins_installed.stdout"
+  failed_when: "logstash_plugins_installed.rc != 0 and logstash_plugins_installed.stdout.find('already exists. To update the plugin') == -1"
