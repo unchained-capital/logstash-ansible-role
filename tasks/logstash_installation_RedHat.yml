@@ -2,15 +2,17 @@
 - name: Enable Logstash repository
   template: src=logstash_repo.j2 
             dest={{ logstash_yum_repo_dest }}
+  tags: logstash_repo
 
 - name: Add Logstash Repo Key
   rpm_key: key="{{ logstash_repo_key }}" 
            state=present
+  tags: logstash_repo
 
-- name: Install Logstash and Logstash-Contrib
-  yum: name={{ item.package }} 
+- name: Install Logstash
+  yum: name=logstash
        state=latest
-  with_items: logstash_packages
+  tags: logstash_install
 
 - name: Configure default settings for Logstash
   template: src=defaults.conf.j2
@@ -22,4 +24,4 @@
   notify:
    - restart logstash
   tags:
-   - logstash_conf
+   - logstash_defaults

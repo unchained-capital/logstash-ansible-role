@@ -7,6 +7,7 @@
             mode=0644
   notify:
    - restart logstash
+  tags: logstash_inputs
 
 - name: Copy Logstash Filter Configuration
   template: src=filters.conf.j2
@@ -16,6 +17,7 @@
             mode=0644
   notify:
    - restart logstash
+  tags: logstash_filters
 
 - name: Copy Logstash Output Configuration
   template: src=output.conf.j2
@@ -25,4 +27,5 @@
             mode=0644
   notify:
    - restart logstash
+  tags: logstash_outputs
 

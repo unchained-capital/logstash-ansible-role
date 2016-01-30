@@ -2,16 +2,18 @@
 - name: Enable Logstash Repository
   apt_repository: repo="{{ logstash_apt_repo }}" 
                   state=present
+  tags: logstash_repo
 
 - name: Add Logstash Repo Key
   apt_key: url="{{ logstash_repo_key }}" 
            state=present
+  tags: logstash_repo
 
 - name: Install Logstash
-  apt: pkg={{ item.package }} 
+  apt: pkg=logstash
        update_cache=yes 
        state=latest
-  with_items: logstash_packages
+  tags: logstash_install
 
 - name: Configure default settings for Logstash daemon (Debian)
   template: src=defaults.conf.j2
@@ -24,12 +26,5 @@
   notify:
    - restart logstash
   tags:
-   - logstash_conf
-
-- name: Configure default settings for Logstash daemon (Ubuntu)
-  lineinfile: dest=/etc/default/logstash regexp=^START= line=START=yes
-  when: ansible_distribution == "Ubuntu"
-  notify:
-   - restart logstash
-  tags:
-   - logstash_conf
+   - logstash
+   - logstash_defaults
