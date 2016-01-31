@@ -22,7 +22,7 @@
             group=root
             mode=0644
             backup=yes
-  when: ansible_distribution == "Debian"
+  when: ansible_os_family == "Debian"
   notify:
    - restart logstash
   tags:
