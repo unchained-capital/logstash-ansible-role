@@ -1,0 +1,58 @@
+input {
+  file {
+    path => "/var/log/alternatives.log"
+    type => "system"
+  }
+  file {
+    path => "/var/log/auth.log"
+    type => "system"
+  }
+  file {
+    path => "/var/log/boot.log"
+    type => "system"
+  }
+  file {
+    path => "/var/log/dmesg"
+    type => "system"
+  }
+  file {
+    path => "/var/log/kern.log"
+    type => "system"
+  }
+  file {
+    path => "/var/log/syslog"
+    type => "system"
+  }
+  file {
+    path => "/var/log/udev"
+    type => "system"
+  }
+{% if ansible_os_family == "Debian" %}
+  file {
+    path => "/var/log/dpkg.log"
+    type => "packages"
+  }
+  file {
+    path => "/var/log/apt/history.log"
+    type => "packages"
+  }
+  file {
+    path => "/var/log/apt/term.log"
+    type => "packages"
+  }
+  file {
+    path => "/var/log/upstart/*.log"
+    type => "upstart"
+  }
+{% endif %}
+{% if logstash_cloud_init %}
+  file {
+    path => "/var/log/cloud-init.log"
+    type => "cloud_init"
+  }
+  file {
+    path => "/var/log/cloud-init-output.log"
+    type => "cloud_init"
+  }
+{% endif %}
+}

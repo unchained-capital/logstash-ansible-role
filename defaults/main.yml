@@ -22,3 +22,5 @@ defaults_Debian: "/etc/default/logstash"
 logstash_home_dir: "/opt/logstash"
 
 logstash_on_logstash: false
+logstash_system_logs: true
+logstash_cloud_init:  false
