@@ -1,0 +1,6 @@
+input {
+  file {
+    path => "{{ logstash_log_dir }}/*.log"
+    type => "influxdb"
+  }
+}
