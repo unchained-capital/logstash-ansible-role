@@ -23,12 +23,12 @@
   shell: bin/plugin uninstall {{ item.name }}
     chdir={{ logstash_home_dir }}
   when: item.name is defined and item.reinstall is defined and item.reinstall == True
-  with_items: logstash_plugins
+  with_items: "{{logstash_plugins}}"
   ignore_errors: yes
 - name: plugins | Installing Plugins
   shell: bin/plugin install {{ item.name }} {{ '--version ' + item.version if item.version is defined else '' }}
     chdir={{ logstash_home_dir }}
-  with_items: logstash_plugins
+  with_items: "{{logstash_plugins}}"
   register: logstash_plugins_installed
   changed_when: "'Installed' in logstash_plugins_installed.stdout"
   failed_when: "logstash_plugins_installed.rc != 0 and logstash_plugins_installed.stdout.find('already exists. To update the plugin') == -1"

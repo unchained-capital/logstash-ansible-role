@@ -1,6 +1,6 @@
 ---
 - name: Enable Logstash Repository
-  apt_repository: repo="{{ logstash_apt_repo }}" 
+  apt_repository: repo="{{ logstash_apt_repo }}"
                   state=present
   tags: logstash_repo
 

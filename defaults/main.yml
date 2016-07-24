@@ -5,9 +5,10 @@ logstash_python_utils:
  - { package: "python-pycurl" }
  - { package: "python-apt" }
 
-logstash_version: "2.1"
+logstash_version: "2.3"      # latest as of 2016-07-04
 
-logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_version }}/debian stable main"
+logstash_apt_repo: "deb http://packages.elastic.co/logstash/{{ logstash_version }}/debian stable main"
+
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
@@ -20,3 +21,6 @@ defaults_RedHat: "/etc/sysconfig/logstash"
 defaults_Debian: "/etc/default/logstash"
 
 logstash_home_dir: "/opt/logstash"
+
+logstash_user:  logstash
+logstash_group: logstash
