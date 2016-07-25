@@ -14,6 +14,7 @@ logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
 logstash_conf_dir: "/etc/logstash/conf.d/"
 logstash_log_dir:  "/var/log/logstash"
+logstash_tmp_dir:  "/var/lib/logstash" # not used directly, but defaulted to
 
 logstash_defaults: "LS_USER=logstash"
 
