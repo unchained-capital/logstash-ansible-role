@@ -1,0 +1,15 @@
+---
+
+- name: Ensure Logstash itself is configured
+  template: src=config.yml.j2 dest="{{ logstash_conf_dir }}/logstash.yml" owner=root group=root mode=0644
+  notify:
+   - restart logstash
+
+- name: Ensure Logstash pipeline is configured
+  template: src="{{ item }}.conf.j2" dest="{{ logstash_conf_dir }}/conf.d/{{ item }}.conf" owner=root group=root mode=0644
+  notify:
+   - restart logstash
+  with_items:
+    - inputs
+    - filters
+    - outputs

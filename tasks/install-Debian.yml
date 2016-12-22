@@ -1,0 +1,23 @@
+---
+
+- name: Ensure package has been downloaded
+  get_url: url="{{ logstash_release_url }}.deb" dest="{{ logstash_download_dir }}/{{ logstash_release_basename }}" owner=root group=root mode=0644
+
+- name: Ensure package has been installed
+  apt: state=present deb="{{ logstash_download_dir }}/{{ logstash_release_basename }}"
+  notify:
+    - restart logstash
+
+- name: Ensure OS default settings are configured (Debian)
+  template: src=defaults.conf.j2
+            dest={{ defaults_Debian }}
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
+  when: ansible_os_family == "Debian"
+  notify:
+   - restart logstash
+  tags:
+   - logstash
+   - logstash_defaults

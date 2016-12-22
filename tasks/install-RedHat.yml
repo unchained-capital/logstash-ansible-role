@@ -1,4 +1,7 @@
 ---
+
+# FIXME -- this needs revision to match the Debian code...
+
 - name: Enable Logstash repository
   template: src=logstash_repo.j2 
             dest={{ logstash_yum_repo_dest }}

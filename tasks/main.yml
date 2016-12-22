@@ -1,42 +1,20 @@
 ---
-# tasks file for logstash-role
 
-- include: logstash_requirements.yml
-  tags:
-   - logstash_req
-   - logstash
-
-- name: Stop Logstash before upgrading
-  service: name=logstash
-           state=stopped
-  ignore_errors: yes
-  tags:
-    - logstash
-
-- include: logstash_installation_Debian.yml
+- include: install-Debian.yml
   when: ansible_os_family == "Debian"
-  tags:
-    - logstash
+  tags: [logstash, install]
 
-- include: logstash_installation_RedHat.yml
+- include: install-RedHat.yml
   when: ansible_os_family == "RedHat"
-  tags:
-    - logstash
+  tags: [logstash, install]
 
-- include: logstash_plugins.yml
+- include: plugins.yml
   when: logstash_plugins is defined
-  tags:
-   - logstash_plugins
-   - logstash
+  tags: [logstash, plugins]
 
-- include: logstash_configuration.yml
-  tags:
-   - logstash_conf
-   - logstash
-
-- name: Start Logstash
-  service: name=logstash
-           state=started
-           enabled=yes
-  tags:
-    - logstash
+- include: config.yml
+  tags: [logstash, config]
+  
+- name: Ensure Logstash service state is correct
+  service: name=logstash state=started enabled=yes
+  tags: [logstash]

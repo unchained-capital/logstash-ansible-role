@@ -19,14 +19,15 @@
 
 # Loop though logstash_plugins and install them
 
-- name: plugins | Removing Old Plugins
-  shell: bin/plugin uninstall {{ item.name }}
-    chdir={{ logstash_home_dir }}
-  when: item.name is defined and item.reinstall is defined and item.reinstall == True
-  with_items: "{{logstash_plugins}}"
-  ignore_errors: yes
+# - name: plugins | Removing Old Plugins
+#   shell: bin/plugin uninstall {{ item.name }}
+#     chdir={{ logstash_home_dir }}
+#   when: item.name is defined and item.reinstall is defined and item.reinstall == True
+#   with_items: "{{logstash_plugins}}"
+#   ignore_errors: yes
+  
 - name: plugins | Installing Plugins
-  shell: bin/plugin install {{ item.name }} {{ '--version ' + item.version if item.version is defined else '' }}
+  shell: bin/logstash-plugin install {{ item.name }} {{ '--version ' + item.version if item.version is defined else '' }}
     chdir={{ logstash_home_dir }}
   with_items: "{{logstash_plugins}}"
   register: logstash_plugins_installed
