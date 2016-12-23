@@ -1,10 +1,10 @@
 ---
 
 - name: Ensure package has been downloaded
-  get_url: url="{{ logstash_release_url }}.deb" dest="{{ logstash_download_dir }}/{{ logstash_release_basename }}" owner=root group=root mode=0644
+  get_url: url="{{ logstash_release_url }}.deb" dest="{{ logstash_download_dir }}/{{ logstash_release_basename }}.deb" owner=root group=root mode=0644
 
 - name: Ensure package has been installed
-  apt: state=present deb="{{ logstash_download_dir }}/{{ logstash_release_basename }}"
+  apt: state=present deb="{{ logstash_download_dir }}/{{ logstash_release_basename }}.deb"
   notify:
     - restart logstash
 
